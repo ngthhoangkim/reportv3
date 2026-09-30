@@ -1,0 +1,12 @@
+bin/
+obj/
+.vs/
+.vscode/
+TestResults/
+*.user
+*.suo
+appsettings.Local.json
+Aspose.Words.lic
+output/
+tmp/
+data/state/

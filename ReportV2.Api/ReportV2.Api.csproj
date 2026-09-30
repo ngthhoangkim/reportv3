@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.31" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReportV2.Core\ReportV2.Core.csproj" />
+    <ProjectReference Include="..\ReportV2.Application\ReportV2.Application.csproj" />
+    <ProjectReference Include="..\ReportV2.Infrastructure\ReportV2.Infrastructure.csproj" />
+    <ProjectReference Include="..\ReportV2.Rendering\ReportV2.Rendering.csproj" />
+  </ItemGroup>
+
+</Project>
