@@ -99,3 +99,23 @@ Template scripts are included:
 
 - `scripts/run-backfill-2026.ps1`
 - `scripts/run-sync-new.ps1`
+
+## Manual Generation Scaffold
+
+For a problematic session/case, run one candidate manually:
+
+```bash
+dotnet run --project ReportV2.Worker -- generate-one --file-num 16012083 --session-id 855699 --dry-run
+```
+
+Prescription example:
+
+```bash
+dotnet run --project ReportV2.Worker -- generate-one --source prescription --file-num 16012083 --session-id 855699 --progress-id 123456 --dry-run
+```
+
+Current behavior uses the no-op processor. Rendering/upload will be attached later, but the manual command shape is ready for testing and operations.
+
+Template script:
+
+- `scripts/run-generate-one.ps1`

@@ -18,6 +18,7 @@ builder.Services.AddReportV2Infrastructure();
 builder.Services.AddScoped<IBackfillJobProcessor, NoopBackfillJobProcessor>();
 builder.Services.AddScoped<YearBackfillRunner>();
 builder.Services.AddScoped<SyncNewRunner>();
+builder.Services.AddScoped<ManualGenerateRunner>();
 
 using var host = builder.Build();
 
@@ -30,6 +31,7 @@ if (command is null)
     Console.WriteLine("ReportV2.Worker is ready.");
     Console.WriteLine("Usage: dotnet run --project ReportV2.Worker -- backfill --year 2026 --dry-run --resume");
     Console.WriteLine("Usage: dotnet run --project ReportV2.Worker -- sync-new --dry-run --resume");
+    Console.WriteLine("Usage: dotnet run --project ReportV2.Worker -- generate-one --file-num 16012083 --session-id 855699 --dry-run");
     return;
 }
 
@@ -61,11 +63,52 @@ if (string.Equals(command, "sync-new", StringComparison.OrdinalIgnoreCase))
     return;
 }
 
+if (string.Equals(command, "generate-one", StringComparison.OrdinalIgnoreCase) ||
+    string.Equals(command, "manual-generate", StringComparison.OrdinalIgnoreCase))
+{
+    if (!parsed.TryGetValue("file-num", out var fileNum) && !parsed.TryGetValue("fileNum", out fileNum))
+    {
+        throw new ArgumentException("Missing --file-num.");
+    }
+
+    var sessionId = TryGetInt(parsed, "session-id", "sessionId");
+    var progressId = TryGetInt(parsed, "progress-id", "progressId");
+    var source = GetValue(parsed, "source") ?? "cdha";
+    var runner = scope.ServiceProvider.GetRequiredService<ManualGenerateRunner>();
+    await runner.RunAsync(
+        fileNum ?? string.Empty,
+        sessionId,
+        progressId,
+        source,
+        IsDryRun(parsed),
+        CancellationToken.None);
+    return;
+}
+
 throw new ArgumentException($"Unknown command: {command}");
 
 static bool IsDryRun(IReadOnlyDictionary<string, string?> parsed)
 {
     return parsed.ContainsKey("dry-run") || parsed.ContainsKey("dryRun");
+}
+
+static string? GetValue(IReadOnlyDictionary<string, string?> parsed, params string[] keys)
+{
+    foreach (var key in keys)
+    {
+        if (parsed.TryGetValue(key, out var value))
+        {
+            return value;
+        }
+    }
+
+    return null;
+}
+
+static int? TryGetInt(IReadOnlyDictionary<string, string?> parsed, params string[] keys)
+{
+    var value = GetValue(parsed, keys);
+    return int.TryParse(value, out var result) ? result : null;
 }
 
 static Dictionary<string, string?> ParseArgs(IEnumerable<string> args)
