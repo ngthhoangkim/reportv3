@@ -61,6 +61,8 @@ Current behavior:
 - Uploads through the same API shape as the Node service: `{Upload:BaseUrl}/api/v1/s3/upload-multiple`.
 - Deletes local output PDFs after successful upload by default (`Upload:CleanupAfterUpload=true`).
 - Cleans temporary extracted images/files after each record.
+- Cleans stale `tmp`, `logs`, and temporary `data/state/*.tmp` files on each Worker run.
+- Keeps required cursor files such as `data/state/backfill-2026.json` and `data/state/sync-new.json`.
 - The first renderer is a working baseline; template fidelity should be validated against real Windows output before replacing the old flow.
 
 ## Scheduled Sync Scaffold

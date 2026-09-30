@@ -42,7 +42,7 @@ if (command is null)
 using var scope = host.Services.CreateScope();
 await scope.ServiceProvider
     .GetRequiredService<TempCleanupService>()
-    .CleanupStaleAsync(TimeSpan.FromHours(24), CancellationToken.None);
+    .CleanupStaleAsync(CancellationToken.None);
 
 var parsed = ParseArgs(args.Skip(1));
 if (string.Equals(command, "backfill", StringComparison.OrdinalIgnoreCase))
