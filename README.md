@@ -28,7 +28,19 @@ Health check:
 curl http://localhost:5000/health
 ```
 
-Business flows are intentionally not ported yet. The next step is to add the first small module when we are ready.
+The current worker has a baseline implementation for CDHA reports, prescriptions, upload, cleanup, backfill, scheduled sync, and manual generation. Template fidelity and real Windows output still need validation before replacing the old flow.
+
+## Windows Setup
+
+Deployment/setup notes for the Windows worker machine are in:
+
+- `docs/WINDOWS_SETUP.md`
+
+Config/template helpers:
+
+- `deploy/appsettings.windows.template.json`
+- `scripts/setup-windows-folders.ps1`
+- `scripts/publish-win-x64.ps1`
 
 ## Aspose License
 
