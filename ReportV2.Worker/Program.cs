@@ -4,6 +4,7 @@ using ReportV2.Application.Abstractions;
 using ReportV2.Application.Options;
 using ReportV2.Application.Services;
 using ReportV2.Infrastructure;
+using ReportV2.Rendering.Aspose;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -19,6 +20,9 @@ builder.Services.AddScoped<YearBackfillRunner>();
 builder.Services.AddScoped<SyncNewRunner>();
 
 using var host = builder.Build();
+
+AsposeLicenseInitializer.EnsureLoaded(
+    builder.Configuration["Aspose:LicensePath"]);
 
 var command = args.FirstOrDefault();
 if (command is null)

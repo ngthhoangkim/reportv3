@@ -6,7 +6,10 @@ TestResults/
 *.user
 *.suo
 appsettings.Local.json
+**/appsettings.Local.json
+**/appsettings.Production.json
 Aspose.Words.lic
+*.lic
 output/
 tmp/
 data/state/

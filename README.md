@@ -30,6 +30,20 @@ curl http://localhost:5000/health
 
 Business flows are intentionally not ported yet. The next step is to add the first small module when we are ready.
 
+## Aspose License
+
+PDF rendering will use `Aspose.Words`. Configure the license path locally, without committing the license file:
+
+```json
+{
+  "Aspose": {
+    "LicensePath": "C:\\ReportV2\\Aspose.Wordsfor.NET.lic"
+  }
+}
+```
+
+License files (`*.lic`) and production appsettings are ignored by git.
+
 ## Year Backfill Scaffold
 
 The worker can scan one year in small daily chunks without storing a large local queue:
