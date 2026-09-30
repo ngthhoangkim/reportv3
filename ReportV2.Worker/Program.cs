@@ -4,6 +4,7 @@ using ReportV2.Application.Abstractions;
 using ReportV2.Application.Options;
 using ReportV2.Application.Services;
 using ReportV2.Infrastructure;
+using ReportV2.Rendering;
 using ReportV2.Rendering.Aspose;
 
 var builder = Host.CreateApplicationBuilder(args);
@@ -14,8 +15,10 @@ builder.Services.Configure<BackfillOptions>(
     builder.Configuration.GetSection(BackfillOptions.SectionName));
 builder.Services.Configure<SyncNewOptions>(
     builder.Configuration.GetSection(SyncNewOptions.SectionName));
+builder.Services.Configure<UploadOptions>(
+    builder.Configuration.GetSection(UploadOptions.SectionName));
 builder.Services.AddReportV2Infrastructure();
-builder.Services.AddScoped<IBackfillJobProcessor, NoopBackfillJobProcessor>();
+builder.Services.AddReportV2Rendering();
 builder.Services.AddScoped<YearBackfillRunner>();
 builder.Services.AddScoped<SyncNewRunner>();
 builder.Services.AddScoped<ManualGenerateRunner>();

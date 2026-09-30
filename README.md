@@ -56,8 +56,10 @@ Current behavior:
 
 - Reads candidate rows from HIS by day.
 - Writes only a tiny cursor file: `data/state/backfill-{year}.json`.
-- Uses a no-op processor, so it does not render or upload PDFs yet.
-- Upload/S3 integration is intentionally not connected yet; the Node service currently uploads by POSTing PDFs to `S3_UPLOAD_API_BASE/api/v1/s3/upload-multiple`.
+- Processes both CDHA reports and prescriptions by default.
+- Uses Aspose.Words to render PDF.
+- Uploads through the same API shape as the Node service: `{Upload:BaseUrl}/api/v1/s3/upload-multiple`.
+- The first renderer is a working baseline; template fidelity should be validated against real Windows output before replacing the old flow.
 
 ## Scheduled Sync Scaffold
 
@@ -73,7 +75,7 @@ Current behavior:
 - Scans from `LastSuccessfulScanTo - SyncNew:LookbackHours` to now.
 - Splits the window into `SyncNew:ChunkHours` chunks.
 - Stops if a chunk hits `SyncNew:MaxCandidatesPerChunk`, so candidates are not silently skipped.
-- Uses the same no-op processor for now; rendering/upload will be attached later.
+- Processes both CDHA reports and prescriptions by default.
 
 Recommended Windows Task Scheduler triggers after HIS sync:
 
