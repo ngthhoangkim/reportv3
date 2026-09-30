@@ -7,5 +7,5 @@ public sealed class UploadOptions
     public string BaseUrl { get; init; } = "";
     public string Prefix { get; init; } = "khambenh/";
     public string PrescriptionPrefix { get; init; } = "khambenh/toathuoc/";
-    public bool CleanupAfterUpload { get; init; }
+    public bool CleanupAfterUpload { get; init; } = true;
 }

@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<ICdhaReportRepository, CdhaReportRepository>();
         services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
         services.AddScoped<IFileResolver, FileShareResolver>();
+        services.AddSingleton<TempCleanupService>();
         services.AddHttpClient<IUploadClient, UploadClient>();
 
         return services;

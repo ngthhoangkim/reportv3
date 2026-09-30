@@ -4,6 +4,7 @@ using ReportV2.Application.Abstractions;
 using ReportV2.Application.Options;
 using ReportV2.Application.Services;
 using ReportV2.Infrastructure;
+using ReportV2.Infrastructure.Files;
 using ReportV2.Rendering;
 using ReportV2.Rendering.Aspose;
 
@@ -39,6 +40,10 @@ if (command is null)
 }
 
 using var scope = host.Services.CreateScope();
+await scope.ServiceProvider
+    .GetRequiredService<TempCleanupService>()
+    .CleanupStaleAsync(TimeSpan.FromHours(24), CancellationToken.None);
+
 var parsed = ParseArgs(args.Skip(1));
 if (string.Equals(command, "backfill", StringComparison.OrdinalIgnoreCase))
 {

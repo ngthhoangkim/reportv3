@@ -59,6 +59,8 @@ Current behavior:
 - Processes both CDHA reports and prescriptions by default.
 - Uses Aspose.Words to render PDF.
 - Uploads through the same API shape as the Node service: `{Upload:BaseUrl}/api/v1/s3/upload-multiple`.
+- Deletes local output PDFs after successful upload by default (`Upload:CleanupAfterUpload=true`).
+- Cleans temporary extracted images/files after each record.
 - The first renderer is a working baseline; template fidelity should be validated against real Windows output before replacing the old flow.
 
 ## Scheduled Sync Scaffold
